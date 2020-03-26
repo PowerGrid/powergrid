@@ -17,6 +17,6 @@ This means any new feature MUST target v1 (`master` branch).
 - **Ensure tests pass!** - Please run the tests before submitting your pull request, and make sure they pass. PowerGrid won't accept a pull request until all tests pass.
 
 ## Bug Reports
-When submitting an [issue or bug report](https://github.com/PowerGrid/powergrid/issues/new), please follow the available bug report templates. This will ensure a sufficient standard for fast processing and bug fixing. The more information you provide, the better we can help you. Therefore, always pay attention to a large amount of detail.
+When submitting an [issue or bug report](https://github.com/PowerGrid/powergrid/issues/new/choose), please follow the available bug report templates. This will ensure a sufficient standard for fast processing and bug fixing. The more information you provide, the better we can help you. Therefore, always pay attention to a large amount of detail.
 
 **Thank you**
