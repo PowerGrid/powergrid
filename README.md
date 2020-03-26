@@ -3,7 +3,7 @@ PowerGrid is a German strategy game in which each player tries to own as many po
 
 ## Installation
 #### From Git
-PowerGrid can be installed via [Git](https://git-scm.com/downloads). Run this command. 
+PowerGrid can be installed via [Git](https://git-scm.com/downloads). Run this command from your terminal. 
 ```bash
 $ git clone https://github.com/PowerGrid/powergrid.git
 ```
