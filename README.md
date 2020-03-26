@@ -5,13 +5,17 @@ PowerGrid is a German strategy game in which each player tries to own as many po
 #### From Git
 PowerGrid can be installed via [Git](https://git-scm.com/downloads). Run this command. 
 ```bash
-git clone https://github.com/PowerGrid/powergrid.git
+$ git clone https://github.com/PowerGrid/powergrid.git
 ```
 #### Download as ZIP archive
 Download the latest version from [here](https://github.com/PowerGrid/powergrid/archive/master.zip).
 
 ## Usage
 > **Note:** PowerGrid for Java requires OpenJDK version 13 or higher.
+
+```bash
+Additional information will follow.
+```
 
 ## Contributing
 Please see [CONTRIBUTING](https://github.com/PowerGrid/powergrid/blob/master/CONTRIBUTING.md) for details.
