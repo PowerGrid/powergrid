@@ -12,3 +12,6 @@ Download the latest version from [here](https://github.com/PowerGrid/powergrid/a
 
 ## Usage
 > **Note:** PowerGrid for Java requires OpenJDK version 13 or higher.
+
+## Contributing
+Please see [CONTRIBUTING](https://github.com/PowerGrid/powergrid/blob/master/CONTRIBUTING.md) for details.
