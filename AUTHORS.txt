@@ -1,0 +1,9 @@
+# This is the official list of PowerGrid authors for copyright purposes.
+# This file is different from the CONTRIBUTORS.txt file.
+# Sufficient explanations and clarifications can be found in the CONTRIBUTORS.txt file.
+
+# Names should be added to this file as follows:
+# Name or Organization <E-Mail Address>
+# The email address is not required for organizations.
+
+Stefan Kühnel <stefan.kuehnel@hm.edu>
