@@ -1,0 +1,7 @@
+# The AUTHORS file lists copyright holders, this file lists
+# unaffiliated contributors who have signed a Contributors
+# License Agreement (CLA), can contribute patches, and are
+# no copyright holders.
+#
+# Names should be added to this file as:
+#     Name <email address>
