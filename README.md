@@ -15,3 +15,6 @@ Download the latest version from [here](https://github.com/PowerGrid/powergrid/a
 
 ## Contributing
 Please see [CONTRIBUTING](https://github.com/PowerGrid/powergrid/blob/master/CONTRIBUTING.md) for details.
+
+## License
+Please see the [license](https://github.com/PowerGrid/powergrid/blob/master/LICENSE) file for more information.
