@@ -14,7 +14,7 @@ import org.junit.rules.Timeout;
 public class Smoke1Test {
     @Rule public Timeout globalTimeout = Timeout.seconds(1); // max seconds per test
 
-    private final String fqcn = "edu.hm.ploeckl.se2.powergrid.datastore.ConcreteFactory";
+    private final String fqcn = "edu.hm.ploeckl.se2.powergrid.datastore.FactoryImplementation";
 
     private final Factory factory = Factory.newFactory(fqcn);
 
