@@ -5,7 +5,6 @@ import edu.hm.cs.rs.powergrid.datastore.City;
 
 import java.util.List;
 import java.util.Set;
-//git boch ein test
 public class BoardImplementation implements Board {
     private Set<City> cities;
 
