@@ -36,15 +36,28 @@ public class FactoryImplementation implements Factory {
 
     @Override
     public Board newBoard(Edition edition) {
-        List<String> CityList = edition.getCitySpecifications();
-        Set<City> cities = new HashSet<>();
-        int regionCounter=0;
-        for (String city : CityList) {
-            String[] cityArray = city.split(" ");
-            cities.add(newCity(cityArray[0], regionCounter));
-            regionCounter++;
+        Board returnBoard = new BoardImplementation();
+
+        //Add cities with name and region to the board
+        for (String cityInfo : edition.getCitySpecifications()){
+            String[] elements = cityInfo.split("\\s+");
+            String name = elements[0];
+            int region = Integer.parseInt(elements[1]);
+            returnBoard.getCities().add(new CityImplementation(name, region));
         }
-        return new BoardImplementation(cities);
+
+        //connect cities (with cost) on the board according to the specifications
+        for (String cityInfo : edition.getCitySpecifications()){
+            String[] elements = cityInfo.split("\\s+");
+            String name = elements[0];
+            City city = returnBoard.findCity(name);
+            for (int count=2; count<elements.length; count=count+2){
+                City connectingCity = returnBoard.findCity(elements[count]);
+                int connectingCost = Integer.parseInt(elements[count+1]);
+                city.connect(connectingCity, connectingCost);
+            }
+        }
+        return returnBoard;
     }
 
     @Override
