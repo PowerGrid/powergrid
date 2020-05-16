@@ -1,4 +1,5 @@
 # PowerGrid
+[![Travis Build Status](https://travis-ci.org/PowerGrid/powergrid.svg?branch=master)](https://travis-ci.org/PowerGrid/powergrid)
 ![Java CI with Maven](https://github.com/PowerGrid/powergrid/workflows/Java%20CI%20with%20Maven/badge.svg)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/61094d6daf8540d8870d839e51bc6f27)](https://app.codacy.com/gh/PowerGrid/powergrid?utm_source=github.com&utm_medium=referral&utm_content=PowerGrid/powergrid&utm_campaign=Badge_Grade_Dashboard)
 [![GitHub issues](https://img.shields.io/github/issues/PowerGrid/powergrid)](https://github.com/PowerGrid/powergrid/issues)
