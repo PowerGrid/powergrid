@@ -1,0 +1,9 @@
+language: java
+install: true
+
+os: linux
+dist: trusty
+jdk: oraclejdk14
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
