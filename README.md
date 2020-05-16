@@ -18,7 +18,7 @@ $ git clone https://github.com/PowerGrid/powergrid.git
 Download the latest version from [here](https://github.com/PowerGrid/powergrid/archive/master.zip).
 
 ## Usage
-> **Note:** PowerGrid for Java requires OpenJDK version 14 or higher.
+> **Note:** PowerGrid for Java requires [OpenJDK version 14](https://www.oracle.com/java/technologies/javase-jdk14-downloads.html) or higher.
 
 ```bash
 Additional information will follow.
