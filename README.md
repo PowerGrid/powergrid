@@ -1,4 +1,7 @@
 # PowerGrid
+![Java CI with Maven](https://github.com/PowerGrid/powergrid/workflows/Java%20CI%20with%20Maven/badge.svg)
+[![GitHub issues](https://img.shields.io/github/issues/PowerGrid/powergrid)](https://github.com/PowerGrid/powergrid/issues)
+
 PowerGrid is a German strategy game in which each player tries to own as many power plants as possible and use them to supply cities and metropolitan regions.
 
 ## Installation
