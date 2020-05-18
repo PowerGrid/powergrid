@@ -110,19 +110,23 @@ public class FactoryProvider implements Factory {
         // Erstellt einen neuen Spielplan.
         final Board board = new BoardGenerator();
 
-        // Städte auf dem Spielplan einfügen.
+        // Fügt Städte auf dem Spielplan ein.
         edition.getCitySpecifications().stream()
                 .forEach(citySpec -> {
                     final String[] splitSpec = citySpec.split("\\s+");
 
+                    // Die Details der Stadt auf dem Spielplan.
                     final String cityName = splitSpec[0];
                     final int cityRegion = Integer.parseInt(splitSpec[1]);
 
+                    // Erstellt eine neue Stadt.
                     final City city = new CityGenerator(cityName, cityRegion);
+
+                    // Fügt die Stadt zum Spielplan hinzu.
                     board.getCities().add(city);
                 });
 
-        // Verbindungen vice versa legen.
+        // Legt Verbindungen vice versa.
         edition.getCitySpecifications().stream()
                 .forEach(citySpec -> {
                     final List<String> splitSpec = Pattern.compile("\\s+")
@@ -137,13 +141,13 @@ public class FactoryProvider implements Factory {
                     splitSpec.remove(cityName);
                     splitSpec.remove(cityRegion);
 
-                    // Finde Stadt auf dem Spielplan.
+                    // Findet Stadt auf dem Spielplan.
                     final City boardCity = board.findCity(cityName);
 
-                    // Erstelle einen Iterator für die Verbindungen.
+                    // Erstellt einen Iterator für die Verbindungen.
                     final Iterator<String> connectionIterator = splitSpec.iterator();
 
-                    // Iteriere über die Verbindungen.
+                    // Iteriert über die Verbindungen.
                     while (connectionIterator.hasNext()) {
 
                         // Der Name der zu verbindenden Stadt.
@@ -152,10 +156,10 @@ public class FactoryProvider implements Factory {
                         // Die Kosten der Verbindung.
                         final int connectCityCost = Integer.parseInt(connectionIterator.next());
 
-                        // Finde zu verbindende Stadt auf dem Spielplan.
+                        // Findet zu verbindende Stadt auf dem Spielplan.
                         final City connectCity = board.findCity(connectCityName);
 
-                        // Verbinde die Städte vice versa.
+                        // Verbindet die Städte vice versa.
                         boardCity.connect(connectCity, connectCityCost);
                         connectCity.connect(boardCity, connectCityCost);
                     }
