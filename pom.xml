@@ -37,6 +37,10 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.7.1.201405082137</version>
+               <configuration>
+				<release>14</release>
+				<compilerArgs>--enable-preview</compilerArgs>
+			    </configuration>
                 <executions>
                     <execution>
                         <goals>
@@ -56,7 +60,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.14.1</version>
                 <configuration>
-                    <argLine>${argLine} --enable-preview</argLine>
+                    <argLine>${argLine}</argLine>
                 </configuration>
             </plugin>
         </plugins>
