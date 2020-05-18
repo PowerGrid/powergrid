@@ -51,7 +51,7 @@ public class FactoryProviderTest {
         final int cityRegion = 1;
 
         // act
-        City city = factory.newCity(cityName, cityRegion);
+        final City city = factory.newCity(cityName, cityRegion);
 
         // assert
         final String want = cityName;
@@ -67,7 +67,7 @@ public class FactoryProviderTest {
         final int cityRegion = 1;
 
         // act
-        City city = factory.newCity(cityName, cityRegion);
+        final City city = factory.newCity(cityName, cityRegion);
 
         // assert
         final int want = cityRegion;
@@ -78,16 +78,16 @@ public class FactoryProviderTest {
 
     @Test
     public void testNewBoardVerifyFunctionalityCitiesAreConnectedViceVersa() {
-        Edition edition = new EditionGermany();
-        Board sut = factory.newBoard(edition);
+        final Edition edition = new EditionGermany();
+        final Board sut = factory.newBoard(edition);
 
-        String[] citySpecification = edition.getCitySpecifications().get(0).split("\\s+");
+        final String[] citySpecification = edition.getCitySpecifications().get(0).split("\\s+");
 
-        String cityAName = citySpecification[0];
-        String cityBName = citySpecification[2];
+        final String cityAName = citySpecification[0];
+        final String cityBName = citySpecification[2];
 
-        City cityA = sut.findCity(cityAName);
-        City cityB = sut.findCity(cityBName);
+        final City cityA = sut.findCity(cityAName);
+        final City cityB = sut.findCity(cityBName);
 
         assertTrue(cityA.getConnections().containsKey(cityB));
         assertTrue(cityB.getConnections().containsKey(cityA));
@@ -95,65 +95,65 @@ public class FactoryProviderTest {
 
     @Test (expected = IllegalArgumentException.class)
     public void testNewBoardRequireArgumentNonNullEdition() {
-        Board sut = factory.newBoard(null);
+        final Board sut = factory.newBoard(null);
     }
 
     /** NACHFOLGEND WERDEN LEDIGLICH DUMMY TEST IMPLEMENTIERUNGEN OHNE MEHRWERT VERWENDET. */
 
     @Test
     public void testNewPlayerRequireReturnDummyNull() {
-        String secret = "Geheimnis";
-        String color = "Farbe";
+        final String secret = "Geheimnis";
+        final String color = "Farbe";
 
-        Player sut = factory.newPlayer(secret, color);
+        final Player sut = factory.newPlayer(secret, color);
 
         assertNull(sut);
     }
 
     @Test
     public void testNewPlantRequireReturnDummyNull() {
-        int number = 1;
-        int resources = 1;
-        int cities = 1;
+        final int number = 1;
+        final int resources = 1;
+        final int cities = 1;
 
-        Plant sut = factory.newPlant(number, null, resources, cities);
+        final Plant sut = factory.newPlant(number, null, resources, cities);
 
         assertNull(sut);
     }
 
     @Test
     public void testNewPlantMarketRequireReturnDummyNull() {
-        Edition edition = new EditionGermany();
+        final Edition edition = new EditionGermany();
 
-        PlantMarket sut = factory.newPlantMarket(edition);
+        final PlantMarket sut = factory.newPlantMarket(edition);
 
         assertNull(sut);
     }
 
     @Test
     public void testNewResourceMarketRequireReturnDummyNull() {
-        Edition edition = new EditionGermany();
+        final Edition edition = new EditionGermany();
 
-        ResourceMarket sut = factory.newResourceMarket(edition);
+        final ResourceMarket sut = factory.newResourceMarket(edition);
 
         assertNull(sut);
     }
 
     @Test
     public void testNewAuctionRequireReturnDummyNull() {
-        Plant plant = null;
-        List<Player> players = null;
+        final Plant plant = null;
+        final List<Player> players = null;
 
-        Auction sut = factory.newAuction(plant, players);
+        final Auction sut = factory.newAuction(plant, players);
 
         assertNull(sut);
     }
 
     @Test
     public void testNewGameRequireReturnDummyNull() {
-        Edition edition = new EditionGermany();
+        final Edition edition = new EditionGermany();
 
-        Game sut = factory.newGame(edition);
+        final Game sut = factory.newGame(edition);
 
         assertNull(sut);
     }
