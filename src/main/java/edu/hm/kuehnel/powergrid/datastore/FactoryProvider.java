@@ -14,10 +14,8 @@ import edu.hm.cs.rs.powergrid.datastore.ResourceMarket;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /** Produziert neue Bausteine des Spieles.
  * @author Stefan Kühnel, stefan.kuehnel@hm.edu
@@ -127,7 +125,7 @@ public class FactoryProvider implements Factory {
         // Verbindungen vice versa legen.
         edition.getCitySpecifications().stream()
                 .forEach(citySpec -> {
-                    List<String> splitSpec = Pattern.compile("\\s+")
+                    final List<String> splitSpec = Pattern.compile("\\s+")
                             .splitAsStream(citySpec)
                             .collect(Collectors.toList());
 
@@ -143,16 +141,16 @@ public class FactoryProvider implements Factory {
                     final City boardCity = board.findCity(cityName);
 
                     // Erstelle einen Iterator für die Verbindungen.
-                    Iterator<String> connectionIterator = splitSpec.iterator();
+                    final Iterator<String> connectionIterator = splitSpec.iterator();
 
                     // Iteriere über die Verbindungen.
                     while (connectionIterator.hasNext()) {
 
                         // Der Name der zu verbindenden Stadt.
-                        String connectCityName = connectionIterator.next();
+                        final String connectCityName = connectionIterator.next();
 
                         // Die Kosten der Verbindung.
-                        int connectCityCost = Integer.parseInt(connectionIterator.next());
+                        final int connectCityCost = Integer.parseInt(connectionIterator.next());
 
                         // Finde zu verbindende Stadt auf dem Spielplan.
                         final City connectCity = board.findCity(connectCityName);
