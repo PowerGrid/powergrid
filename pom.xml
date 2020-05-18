@@ -34,13 +34,20 @@
         <sourceDirectory>src/main/java</sourceDirectory>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <release>12</release>
+                    <compilerArgs>
+                        <arg>--enable-preview</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.7.1.201405082137</version>
-               <configuration>
-				<release>14</release>
-				<compilerArgs>--enable-preview</compilerArgs>
-			    </configuration>
                 <executions>
                     <execution>
                         <goals>
