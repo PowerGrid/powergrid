@@ -5,7 +5,5 @@ os: linux
 dist: trusty
 jdk: oraclejdk14
 
-script: mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package org.jacoco:jacoco-maven-plugin:report
-
 after_success:
   - bash <(curl -Ls https://coverage.codacy.com/get.sh)
