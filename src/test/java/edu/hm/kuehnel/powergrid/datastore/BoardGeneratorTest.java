@@ -27,7 +27,7 @@ import java.io.IOException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-/** Die Testklasse fuer den BoardGenerator
+/** Die Testklasse fuer den BoardGenerator.
  * @author Stefan Kühnel, stefan.kuehnel@hm.edu
  * @version last-modified 2020-05-16
  */
@@ -35,9 +35,6 @@ public class BoardGeneratorTest {
     /** Verhindert unendliche Schleifen. */
     @Rule
     public final Timeout globalTimeout = Timeout.seconds(1); // Maximale Anzahl an Sekunden pro Testfall.
-
-    /** FQCN der konkreten Factory Klasse */
-    private final String factoryFQCN;
 
     /** Factory. */
     private final Factory factory;
@@ -47,28 +44,30 @@ public class BoardGeneratorTest {
 
     /** Initialisiert die Factory. */
     public BoardGeneratorTest() throws IOException {
-        factoryFQCN = "edu.hm.kuehnel.powergrid.datastore.FactoryProvider";
+        final String factoryFQCN = "edu.hm.kuehnel.powergrid.datastore.FactoryProvider";
         factory = Factory.newFactory(factoryFQCN);
         edition = new EditionGermany();
     }
 
-    /** Instanziiert einen neuen Spielplan mit fallbezogenen oder falschen Parametern. */
+    /** Instanziiert einen neuen Spielplan mit fallbezogenen oder falschen Parametern.
+     * @return Spielplan.
+     */
     public Board getSUT() {
         return factory.newBoard(edition);
     }
 
     @Test
     public void testCloseRegionsVerifyFunctionalityNumberOfRegionalCitiesOnBoardAndEditionAreEqual() {
-        Board sut = getSUT();
+        final Board sut = getSUT();
 
         // Definition der Regionen deren Städte auf dem Spielbrett verbleiben sollen.
-        int remaining = 1;
+        final int remaining = 1;
 
         // Zählen aller Städte der Edition, die sich in der Region 1 befinden.
         int numberOfRegionalCitiesInEdition = 0;
-        for (String citySpec : edition.getCitySpecifications()) {
-            String[] singleCityProperties = citySpec.split("\\s+");
-            int singleCityRegion = Integer.parseInt(singleCityProperties[1]);
+        for (final String citySpec : edition.getCitySpecifications()) {
+            final String[] singleCityProperties = citySpec.split("\\s+");
+            final int singleCityRegion = Integer.parseInt(singleCityProperties[1]);
 
             if(singleCityRegion <= remaining)
                 numberOfRegionalCitiesInEdition++;
@@ -77,8 +76,8 @@ public class BoardGeneratorTest {
         // Schließen aller Städte auf dem Board, die nicht in Region 1 liegen.
         sut.closeRegions(remaining);
 
-        int want = numberOfRegionalCitiesInEdition;
-        int have = sut.getCities().size();
+        final int want = numberOfRegionalCitiesInEdition;
+        final int have = sut.getCities().size();
 
         assertEquals(want, have);
 
@@ -86,63 +85,63 @@ public class BoardGeneratorTest {
 
     @Test (expected = IllegalArgumentException.class)
     public void testCloseRegionsRequireArgumentNonNegativeRemaining() {
-        Board sut = getSUT();
+        final Board sut = getSUT();
         sut.closeRegions(-1);
     }
 
     @Test (expected = IllegalStateException.class)
     public void testCloseRegionsDenyActionCloseRegionsWhenBoardIsClosed() {
-        Board sut = getSUT();
+        final Board sut = getSUT();
         sut.close();
         sut.closeRegions(1);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void testFindCityRequireArgumentNonEmptyName() {
-        Board sut = getSUT();
+        final Board sut = getSUT();
         sut.findCity("");
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void testFindCityRequireArgumentNonNullName() {
-        Board sut = getSUT();
+        final Board sut = getSUT();
         sut.findCity(null);
     }
 
     @Test
     public void testFindCityRequireReturnNullIfCityIsNotFoundOnBoard() {
-        Board sut = getSUT();
+        final Board sut = getSUT();
 
         assertNull(sut.findCity("Atlantis"));
     }
 
     @Test
     public void testFindCityVerifyFunctionalityRandomCityFromEditionIsFoundOnBoard() {
-        Board sut = getSUT();
+        final Board sut = getSUT();
 
-        String[] editionCityProperties = edition.getCitySpecifications().get(0).split("\\s+");
-        String cityNameFromEdition = editionCityProperties[0];
+        final String[] editionCityProperties = edition.getCitySpecifications().get(0).split("\\s+");
+        final String cityNameFromEdition = editionCityProperties[0];
 
-        String want = cityNameFromEdition;
-        String have = sut.findCity(cityNameFromEdition).getName();
+        final String want = cityNameFromEdition;
+        final String have = sut.findCity(cityNameFromEdition).getName();
 
         assertEquals(want, have);
     }
 
     @Test
     public void testGetCitiesVerifyFunctionalityCompareNumberOfCitiesWithEdition() {
-        Board sut = getSUT();
+        final Board sut = getSUT();
 
-        int want = edition.getCitySpecifications().size();
-        int have = sut.getCities().size();
+        final int want = edition.getCitySpecifications().size();
+        final int have = sut.getCities().size();
 
         assertEquals(want, have);
     }
 
     @Test (expected = UnsupportedOperationException.class)
     public void testGetCitiesRequireReturnImmutableSetWhenBoardIsClosed() {
-        Board sut = getSUT();
-        City city = factory.newCity("Entenhausen", 1);
+        final Board sut = getSUT();
+        final City city = factory.newCity("Entenhausen", 1);
 
         sut.close();
 
@@ -152,7 +151,7 @@ public class BoardGeneratorTest {
 
     @Test (expected = IllegalStateException.class)
     public void testCloseDenyActionMultipleBoardCloseRequests() {
-        Board sut = getSUT();
+        final Board sut = getSUT();
 
         // Der Spielplan wird das erste Mal geschlossen.
         sut.close();
@@ -163,7 +162,7 @@ public class BoardGeneratorTest {
 
     @Test (expected = IllegalStateException.class)
     public void testCloseDenyActionClosedCityOnBoardIsClosedAgain() {
-        Board sut = getSUT();
+        final Board sut = getSUT();
 
         // Der Spielplan wird das erste Mal geschlossen.
         sut.close();
