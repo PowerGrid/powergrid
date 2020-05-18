@@ -51,6 +51,9 @@ class CityGenerator implements City {
      * Initialisiert eine neue Stadt.
      * @param name Name der Stadt. Nicht leer, nicht null.
      * @param region Gebiet, in dem die Stadt liegt. Wenigstens 1.
+     *
+     * @throws IllegalArgumentException wenn der Name der Stadt null oder leer ist.
+     * @throws IllegalArgumentException wenn das Gebiet, in dem die Stadt liegt, nicht wenigstens 1 ist.
      */
     CityGenerator(final String name, final int region) {
         this.name = Optional.ofNullable(name) // Name der Stadt darf nicht null sein.
@@ -115,8 +118,10 @@ class CityGenerator implements City {
     /**
      * Verbindungen zu anderen Staedten.
      * Veraenderlich bis zum ersten close-Aufruf, dann unveraenderlich.
-     * @return Verbindungen. Nicht null und nicht leer.
      * Jeder Eintrag bildet eine andere Stadt auf die Verbindungskosten dort hin ab.
+     * @return Verbindungen. Nicht null und nicht leer.
+     *
+     * @throws IllegalStateException wenn die Verbindungen der Stadt leer sind.
      */
     @Override
     public Map<City, Integer> getConnections() {
@@ -135,11 +140,15 @@ class CityGenerator implements City {
      * Schliesst die Verbindungen dieser Stadt ab.
      * connect-Aufrufe sind nicht mehr erlaubt, dafuer getConnections.
      * @throws IllegalStateException wenn die Stadt geschlossen ist.
+     * @throws IllegalStateException wenn die Verbindungen der Stadt leer sind.
      */
     @Override
     public void close() {
         if (closed)
             throw new IllegalStateException("Die Stadt wurde bereits geschlossen.");
+
+        if (connections.isEmpty())
+            throw new IllegalStateException("Die Stadt muss mit mindestens einer anderen Stadt verbunden werden.");
 
         closed = true;
     }

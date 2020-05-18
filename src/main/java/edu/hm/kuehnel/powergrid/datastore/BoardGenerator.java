@@ -45,26 +45,26 @@ public class BoardGenerator implements Board {
      * @param remaining Staedte in Regionen bis zu dieser Nummer bleiben bestehen.
      *                  Staedte darueber verschwinden.
      * @throws IllegalStateException wenn der Spielplan geschlossen ist.
+     * @throws IllegalArgumentException wenn Nummer der verbleibenden Städte negativ ist.
      */
     @Override
     public void closeRegions(int remaining) {
         requireNonClosedBoard();
         requireNonNegativeRemaining(remaining);
 
+        // Erstellt einen Iterator für die Städte auf dem Spielplan.
         final Iterator<City> cityIterator = citiesOnBoard.iterator();
 
+        // Iteriert über alle Städte auf dem Spielplan.
         while (cityIterator.hasNext()) {
+
+            // Erstellt einen Iterator für die verbundenen Städte.
             final City city = cityIterator.next();
 
-            final Iterator<City> connectedCityIterator = city.getConnections().keySet().iterator();
+            // Entfernt Verbindungen zu Städten, die sich nicht in zu verbleibenden Regionen befinden.
+            city.getConnections().keySet().removeIf(connectedCity -> connectedCity.getRegion() > remaining);
 
-            while(connectedCityIterator.hasNext()) {
-                final City connectedCity = connectedCityIterator.next();
-
-                if(connectedCity.getRegion() > remaining)
-                    connectedCityIterator.remove();
-            }
-
+            // Entfernt eine Stadt, wenn diese nicht in einer zu verbleibenden Region liegt.
             if (city.getRegion() > remaining)
                 cityIterator.remove();
         }

@@ -163,8 +163,26 @@ public class CityGeneratorTest {
         sut.connect(city, costs);
     }
 
+    @Test (expected = IllegalStateException.class)
+    public void testConnectDenyActionCityIsAlreadyClosed() {
+        final City sut = getSUT();
+
+        // Definition der zu verbindenden Stadt
+        final City city = getSUT("Entenburg", 2);
+        final int costs = 1;
+
+        // Die Stadt wird verbunden.
+        sut.connect(city, costs);
+
+        // Die Stadt wird geschlossen.
+        sut.close();
+
+        // Neuer Verbindungsversuch scheiter jetzt.
+        sut.connect(city, costs);
+    }
+
     @Test
-    public void testConnectVerifyFunctionalityCheckIfCityIsIndeedConnected() {
+    public void testConnectVerifyFunctionalityCityIsIndeedConnected() {
         final City sut = getSUT();
 
         // Die zu verbindende Stadt wird erstellt.
@@ -224,14 +242,28 @@ public class CityGeneratorTest {
     }
 
     @Test (expected = IllegalStateException.class)
-    public void testCloseDenyActionMultipleCityCloseRequests() {
+    public void testCloseDenyActionEmptyCityConnections() {
         final City sut = getSUT();
 
-        // Die Stadt wird zum ersten Mal geschlossen.
+        // Die Stadt wird geschlossen ohne dass Verbindungen zu anderen Städten existieren.
+        sut.close();
+    }
+
+    @Test (expected = IllegalStateException.class)
+    public void testCloseDenyActionTwoSubsequentCloseRequests() {
+        final City sut = getSUT();
+
+        // Erstellt eine Beispielstadt.
+        final City connectCity = factory.newCity("Entenburg", 1);
+
+        // Verbindet die Städte.
+        sut.connect(connectCity, 1);
+
+        // Schließt die Stadt.
         sut.close();
 
-        // Die Stadt wird zum zweiten Mal geschlossen.
-        sut.close(); // Wird verweigert.
+        // Schließt die Stadt erneut.
+        sut.close(); // Hier wird ein Fehler auftreten.
     }
 
     @Test
