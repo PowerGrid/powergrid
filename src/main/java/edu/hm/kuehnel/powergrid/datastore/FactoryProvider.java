@@ -11,9 +11,11 @@ import edu.hm.cs.rs.powergrid.datastore.PlantMarket;
 import edu.hm.cs.rs.powergrid.datastore.Player;
 import edu.hm.cs.rs.powergrid.datastore.ResourceMarket;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -101,59 +103,65 @@ public class FactoryProvider implements Factory {
      */
     @Override
     public Board newBoard(Edition edition) { // ToDo: Caching implementieren.
-        final Board board = Optional.ofNullable(edition)
-                .map(createBoard -> new BoardGenerator())
-                .orElseThrow(
-                        () -> new IllegalArgumentException("Die Edition darf nicht null sein.")
-                );
 
-        final Set<City> boardCities = board.getCities();
-        final List<String> citySpecifications = edition.getCitySpecifications();
+        // Prüft, ob die Edition null ist.
+        Optional.ofNullable(edition).orElseThrow(
+                () -> new IllegalArgumentException("Die Edition darf nicht null sein.")
+        );
 
-        // Add cities to board
-        for (String citySpec : citySpecifications) {
-            final List<String> cityData = Stream.of(citySpec.split("\\s+"))
-                    .map(String::trim)
-                    .collect(Collectors.toList());
+        // Erstellt einen neuen Spielplan.
+        final Board board = new BoardGenerator();
 
-            final String cityName = cityData.get(0);
-            final int cityRegion = Integer.parseInt(cityData.get(1));
-            final City city = new CityGenerator(cityName, cityRegion);
+        // Städte auf dem Spielplan einfügen.
+        edition.getCitySpecifications().stream()
+                .forEach(citySpec -> {
+                    final String[] splitSpec = citySpec.split("\\s+");
 
-            boardCities.add(city);
-        }
+                    final String cityName = splitSpec[0];
+                    final int cityRegion = Integer.parseInt(splitSpec[1]);
 
-        // Connect cities on board vice versa.
-        for (String citySpec : citySpecifications) {
-            final List<String> cityData = Stream.of(citySpec.split("\\s+"))
-                    .map(String::trim)
-                    .collect(Collectors.toList());
+                    final City city = new CityGenerator(cityName, cityRegion);
+                    board.getCities().add(city);
+                });
 
-            // Get base city data.
-            final String cityName = cityData.get(0);
-            final String cityRegion = cityData.get(1);
+        // Verbindungen vice versa legen.
+        edition.getCitySpecifications().stream()
+                .forEach(citySpec -> {
+                    List<String> splitSpec = Pattern.compile("\\s+")
+                            .splitAsStream(citySpec)
+                            .collect(Collectors.toList());
 
-            // Remove base city data, focus on connections.
-            cityData.remove(cityName);
-            cityData.remove(cityRegion);
+                    // Die Details der Stadt auf dem Spielplan.
+                    final String cityName = splitSpec.get(0);
+                    final String cityRegion = splitSpec.get(1);
 
-            final City cityOnBoard = board.findCity(cityName);
+                    // Nur noch die Verbindungen sollen übrig bleiben.
+                    splitSpec.remove(cityName);
+                    splitSpec.remove(cityRegion);
 
-            if(!cityData.isEmpty()) {
-                for (int index = 0; index < cityData.size(); index++) {
-                    final String cityToConnectName = cityData.get(index);
-                    final int cityToConnectCosts = Integer.parseInt(cityData.get(index + 1));
+                    // Finde Stadt auf dem Spielplan.
+                    final City boardCity = board.findCity(cityName);
 
-                    final City cityToConnect = board.findCity(cityToConnectName);
+                    // Erstelle einen Iterator für die Verbindungen.
+                    Iterator<String> connectionIterator = splitSpec.iterator();
 
-                    // Connect cities vice versa
-                    cityOnBoard.connect(cityToConnect, cityToConnectCosts);
-                    cityToConnect.connect(cityOnBoard, cityToConnectCosts);
+                    // Iteriere über die Verbindungen.
+                    while (connectionIterator.hasNext()) {
 
-                    index++;
-                }
-            }
-        }
+                        // Der Name der zu verbindenden Stadt.
+                        String connectCityName = connectionIterator.next();
+
+                        // Die Kosten der Verbindung.
+                        int connectCityCost = Integer.parseInt(connectionIterator.next());
+
+                        // Finde zu verbindende Stadt auf dem Spielplan.
+                        final City connectCity = board.findCity(connectCityName);
+
+                        // Verbinde die Städte vice versa.
+                        boardCity.connect(connectCity, connectCityCost);
+                        connectCity.connect(boardCity, connectCityCost);
+                    }
+                });
 
         return board;
     }
