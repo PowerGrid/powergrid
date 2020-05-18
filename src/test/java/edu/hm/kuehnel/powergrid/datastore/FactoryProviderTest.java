@@ -91,7 +91,7 @@ public class FactoryProviderTest {
 
     @Test (expected = IllegalArgumentException.class)
     public void testNewBoardRequireArgumentNonNullEdition() {
-        final Board sut = factory.newBoard(null);
+        factory.newBoard(null);
     }
 
     /** NACHFOLGEND WERDEN LEDIGLICH DUMMY TEST IMPLEMENTIERUNGEN OHNE MEHRWERT VERWENDET. */
