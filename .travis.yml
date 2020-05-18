@@ -10,4 +10,4 @@ cache:
   - $HOME/.m2
 
 after_success:
-  - bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l Java -r target/site/jacoco/jacoco.xml
+  -  bash <(curl -s https://codecov.io/bash) 
