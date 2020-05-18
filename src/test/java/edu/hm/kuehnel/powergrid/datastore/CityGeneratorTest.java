@@ -33,24 +33,28 @@ public class CityGeneratorTest {
     @Rule
     public final Timeout globalTimeout = Timeout.seconds(1); // Maximale Anzahl an Sekunden pro Testfall.
 
-    /** FQCN der konkreten Factory Klasse */
-    private final String factoryFQCN;
-
     /** Factory. */
     private final Factory factory;
 
     /** Initialisiert die Factory. */
     public CityGeneratorTest() throws IOException {
-        factoryFQCN = "edu.hm.kuehnel.powergrid.datastore.FactoryProvider";
+        final String factoryFQCN = "edu.hm.kuehnel.powergrid.datastore.FactoryProvider";
         factory = Factory.newFactory(factoryFQCN);
     }
 
-    /** Instanziiert eine neue Stadt mit fallbezogenen oder falschen Parametern. */
+    /** Instanziiert eine neue Stadt mit fallbezogenen oder falschen Parametern.
+     * @param name Name der Stadt. Nicht leer, nicht null.
+     * @param region Gebiet, in dem die Stadt liegt. Wenigstens 1.
+     *
+     * @return City.
+     */
     public City getSUT(String name, int region) {
         return factory.newCity(name, region);
     }
 
-    /** Instanziiert eine neue Stadt mit korrekten Parametern. */
+    /** Instanziiert eine neue Stadt mit korrekten Parametern.
+     * @return City.
+     */
     public City getSUT() {
         final String cityName = "Entenhausen";
         final int region = 1;
