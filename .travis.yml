@@ -5,7 +5,7 @@ os: linux
 dist: trusty
 jdk: oraclejdk14
 
-script: mvn clean jacoco:prepare-agent install jacoco:report
+script: mvn -DskipTests clean verify
 
 after_success:
   - bash <(curl -Ls https://coverage.codacy.com/get.sh)
