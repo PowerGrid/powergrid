@@ -24,8 +24,7 @@ import java.io.IOException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Die Testklasse fuer den CityGenerator.
+/** Die Testklasse fuer den CityGenerator.
  * @author Stefan Kuehnel, stefan.kuehnel@hm.edu
  * @version last-modified 2020-05-16
  */

@@ -27,8 +27,7 @@ import java.io.IOException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-/**
- * Die Testklasse fuer den BoardGenerator
+/** Die Testklasse fuer den BoardGenerator
  * @author Stefan Kühnel, stefan.kuehnel@hm.edu
  * @version last-modified 2020-05-16
  */

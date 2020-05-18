@@ -22,8 +22,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-/**
- * Eine Stadt auf dem Spielplan.
+/** Eine Stadt auf dem Spielplan.
  * @author Stefan Kuehnel, stefan.kuehnel@hm.edu
  * @version last-modified 2020-05-16
  */

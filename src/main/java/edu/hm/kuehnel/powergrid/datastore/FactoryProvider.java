@@ -17,8 +17,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-/**
- * Produziert neue Bausteine des Spieles.
+/** Produziert neue Bausteine des Spieles.
  * @author Stefan Kühnel, stefan.kuehnel@hm.edu
  * @version last-modified 2020-05-16
  */

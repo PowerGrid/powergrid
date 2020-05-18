@@ -23,8 +23,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
 
-/**
- * Der Spielplan.
+/** Der Spielplan.
  * @author Stefan Kuehnel, stefan.kuehnel@hm.edu
  * @version last-modified 2020-05-18
  */

@@ -22,8 +22,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Die Testklasse fuer den FactoryProvider.
+/** Die Testklasse fuer den FactoryProvider.
  * @author Stefan Kühnel, stefan.kuehnel@hm.edu
  * @version last-modified 2020-05-18
  */
@@ -32,15 +31,12 @@ public class FactoryProviderTest {
     @Rule
     public final Timeout globalTimeout = Timeout.seconds(1); // Maximale Anzahl an Sekunden pro Testfall.
 
-    /** FQCN der konkreten Factory Klasse */
-    private final String factoryFQCN;
-
     /** Factory. */
     private final Factory factory;
 
     /** Initialisiert die Factory. */
     public FactoryProviderTest() throws IOException {
-        factoryFQCN = "edu.hm.kuehnel.powergrid.datastore.FactoryProvider";
+        final String factoryFQCN = "edu.hm.kuehnel.powergrid.datastore.FactoryProvider";
         factory = Factory.newFactory(factoryFQCN);
     }
 
