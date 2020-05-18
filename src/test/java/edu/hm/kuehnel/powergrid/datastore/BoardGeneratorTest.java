@@ -64,20 +64,17 @@ public class BoardGeneratorTest {
         final int remaining = 1;
 
         // Zählen aller Städte der Edition, die sich in der Region 1 befinden.
-        int numberOfRegionalCitiesInEdition = 0;
-        for (final String citySpec : edition.getCitySpecifications()) {
-            final String[] singleCityProperties = citySpec.split("\\s+");
-            final int singleCityRegion = Integer.parseInt(singleCityProperties[1]);
-
-            if(singleCityRegion <= remaining)
-                numberOfRegionalCitiesInEdition++;
-        }
+        long numberOfCitiesInRegionInEdition = edition.getCitySpecifications().stream()
+                .filter(citySpec -> {
+                    int cityRegion = Integer.parseInt(citySpec.split("\\s+")[1]);
+                    return cityRegion <= remaining;
+                }).count();
 
         // Schließen aller Städte auf dem Board, die nicht in Region 1 liegen.
         sut.closeRegions(remaining);
 
-        final int want = numberOfRegionalCitiesInEdition;
-        final int have = sut.getCities().size();
+        final long want = numberOfCitiesInRegionInEdition;
+        final long have = sut.getCities().size();
 
         assertEquals(want, have);
 

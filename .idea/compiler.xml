@@ -7,10 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="edu.hm.kuehnel.maven.java" />
+        <module name="powergrid" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="edu.hm.kuehnel.maven.java" target="14" />
+      <module name="powergrid" target="14" />
     </bytecodeTargetLevel>
   </component>
 </project>
