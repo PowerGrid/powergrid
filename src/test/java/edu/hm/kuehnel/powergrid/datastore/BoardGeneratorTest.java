@@ -64,9 +64,9 @@ public class BoardGeneratorTest {
         final int remaining = 1;
 
         // Zählen aller Städte der Edition, die sich in der Region 1 befinden.
-        long numberOfCitiesInRegionInEdition = edition.getCitySpecifications().stream()
+        final long numberOfCitiesInRegionInEdition = edition.getCitySpecifications().stream()
                 .filter(citySpec -> {
-                    int cityRegion = Integer.parseInt(citySpec.split("\\s+")[1]);
+                    final int cityRegion = Integer.parseInt(citySpec.split("\\s+")[1]);
                     return cityRegion <= remaining;
                 }).count();
 
