@@ -5,5 +5,9 @@ os: linux
 dist: trusty
 jdk: oraclejdk14
 
+cache:
+  directories:
+  - $HOME/.m2
+
 after_success:
   - bash <(curl -Ls https://coverage.codacy.com/get.sh)
