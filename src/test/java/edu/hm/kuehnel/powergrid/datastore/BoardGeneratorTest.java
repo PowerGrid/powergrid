@@ -59,7 +59,7 @@ public class BoardGeneratorTest {
     }
 
     @Test
-    public void testCloseRegions_VerifyFunctionality_NumberOfRegionalCitiesOnBoardAndEditionAreEqual() {
+    public void testCloseRegionsVerifyFunctionalityNumberOfRegionalCitiesOnBoardAndEditionAreEqual() {
         Board sut = getSUT();
 
         // Definition der Regionen deren Städte auf dem Spielbrett verbleiben sollen.
@@ -86,39 +86,39 @@ public class BoardGeneratorTest {
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void testCloseRegions_RequireArgument_NonNegativeRemaining() {
+    public void testCloseRegionsRequireArgumentNonNegativeRemaining() {
         Board sut = getSUT();
         sut.closeRegions(-1);
     }
 
     @Test (expected = IllegalStateException.class)
-    public void testCloseRegions_DenyAction_CloseRegionsWhenBoardIsClosed() {
+    public void testCloseRegionsDenyActionCloseRegionsWhenBoardIsClosed() {
         Board sut = getSUT();
         sut.close();
         sut.closeRegions(1);
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void testFindCity_RequireArgument_NonEmptyName() {
+    public void testFindCityRequireArgumentNonEmptyName() {
         Board sut = getSUT();
         sut.findCity("");
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void testFindCity_RequireArgument_NonNullName() {
+    public void testFindCityRequireArgumentNonNullName() {
         Board sut = getSUT();
         sut.findCity(null);
     }
 
     @Test
-    public void testFindCity_RequireReturn_NullIfCityIsNotFoundOnBoard() {
+    public void testFindCityRequireReturnNullIfCityIsNotFoundOnBoard() {
         Board sut = getSUT();
 
         assertNull(sut.findCity("Atlantis"));
     }
 
     @Test
-    public void testFindCity_VerifyFunctionality_RandomCityFromEditionIsFoundOnBoard() {
+    public void testFindCityVerifyFunctionalityRandomCityFromEditionIsFoundOnBoard() {
         Board sut = getSUT();
 
         String[] editionCityProperties = edition.getCitySpecifications().get(0).split("\\s+");
@@ -131,7 +131,7 @@ public class BoardGeneratorTest {
     }
 
     @Test
-    public void testGetCities_VerifyFunctionality_CompareNumberOfCitiesWithEdition() {
+    public void testGetCitiesVerifyFunctionalityCompareNumberOfCitiesWithEdition() {
         Board sut = getSUT();
 
         int want = edition.getCitySpecifications().size();
@@ -141,7 +141,7 @@ public class BoardGeneratorTest {
     }
 
     @Test (expected = UnsupportedOperationException.class)
-    public void testGetCities_RequireReturn_ImmutableSetWhenBoardIsClosed() {
+    public void testGetCitiesRequireReturnImmutableSetWhenBoardIsClosed() {
         Board sut = getSUT();
         City city = factory.newCity("Entenhausen", 1);
 
@@ -152,7 +152,7 @@ public class BoardGeneratorTest {
     }
 
     @Test (expected = IllegalStateException.class)
-    public void testClose_DenyAction_MultipleBoardCloseRequests() {
+    public void testCloseDenyActionMultipleBoardCloseRequests() {
         Board sut = getSUT();
 
         // Der Spielplan wird das erste Mal geschlossen.
@@ -163,7 +163,7 @@ public class BoardGeneratorTest {
     }
 
     @Test (expected = IllegalStateException.class)
-    public void testClose_DenyAction_ClosedCityOnBoardIsClosedAgain() {
+    public void testCloseDenyActionClosedCityOnBoardIsClosedAgain() {
         Board sut = getSUT();
 
         // Der Spielplan wird das erste Mal geschlossen.

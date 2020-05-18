@@ -23,7 +23,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Die Testklasse fuer den FactoryProvider
+ * Die Testklasse fuer den FactoryProvider.
  * @author Stefan Kühnel, stefan.kuehnel@hm.edu
  * @version last-modified 2020-05-18
  */
@@ -45,7 +45,7 @@ public class FactoryProviderTest {
     }
 
     @Test
-    public void testNewCity_VerifyFunctionality_CompareCityNameWithActualName() {
+    public void testNewCityVerifyFunctionalityCompareCityNameWithActualName() {
         // arrange
         final String cityName = "Entenhausen";
         final int cityRegion = 1;
@@ -61,7 +61,7 @@ public class FactoryProviderTest {
     }
 
     @Test
-    public void testNewCity_VerifyFunctionality_CompareCityRegionWithActualRegion() {
+    public void testNewCityVerifyFunctionalityCompareCityRegionWithActualRegion() {
         // arrange
         final String cityName = "Entenhausen";
         final int cityRegion = 1;
@@ -77,7 +77,7 @@ public class FactoryProviderTest {
     }
 
     @Test
-    public void testNewBoard_VerifyFunctionality_CitiesAreConnectedViceVersa() {
+    public void testNewBoardVerifyFunctionalityCitiesAreConnectedViceVersa() {
         Edition edition = new EditionGermany();
         Board sut = factory.newBoard(edition);
 
@@ -94,14 +94,14 @@ public class FactoryProviderTest {
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void testNewBoard_RequireArgument_NonNullEdition() {
+    public void testNewBoardRequireArgumentNonNullEdition() {
         Board sut = factory.newBoard(null);
     }
 
     /** NACHFOLGEND WERDEN LEDIGLICH DUMMY TEST IMPLEMENTIERUNGEN OHNE MEHRWERT VERWENDET. */
 
     @Test
-    public void testNewPlayer_RequireReturn_DummyNull() {
+    public void testNewPlayerRequireReturnDummyNull() {
         String secret = "Geheimnis";
         String color = "Farbe";
 
@@ -111,7 +111,7 @@ public class FactoryProviderTest {
     }
 
     @Test
-    public void testNewPlant_RequireReturn_DummyNull() {
+    public void testNewPlantRequireReturnDummyNull() {
         int number = 1;
         int resources = 1;
         int cities = 1;
@@ -122,7 +122,7 @@ public class FactoryProviderTest {
     }
 
     @Test
-    public void testNewPlantMarket_RequireReturn_DummyNull() {
+    public void testNewPlantMarketRequireReturnDummyNull() {
         Edition edition = new EditionGermany();
 
         PlantMarket sut = factory.newPlantMarket(edition);
@@ -131,7 +131,7 @@ public class FactoryProviderTest {
     }
 
     @Test
-    public void testNewResourceMarket_RequireReturn_DummyNull() {
+    public void testNewResourceMarketRequireReturnDummyNull() {
         Edition edition = new EditionGermany();
 
         ResourceMarket sut = factory.newResourceMarket(edition);
@@ -140,7 +140,7 @@ public class FactoryProviderTest {
     }
 
     @Test
-    public void testNewAuction_RequireReturn_DummyNull() {
+    public void testNewAuctionRequireReturnDummyNull() {
         Plant plant = null;
         List<Player> players = null;
 
@@ -150,7 +150,7 @@ public class FactoryProviderTest {
     }
 
     @Test
-    public void testNewGame_RequireReturn_DummyNull() {
+    public void testNewGameRequireReturnDummyNull() {
         Edition edition = new EditionGermany();
 
         Game sut = factory.newGame(edition);

@@ -25,7 +25,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Die Testklasse fuer den CityGenerator
+ * Die Testklasse fuer den CityGenerator.
  * @author Stefan Kuehnel, stefan.kuehnel@hm.edu
  * @version last-modified 2020-05-16
  */
@@ -59,21 +59,21 @@ public class CityGeneratorTest {
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void testNewCity_RequireArgument_NonNullName() {
+    public void testNewCityRequireArgumentNonNullName() {
         final String name = null;
         final int region = 1;
         getSUT(name, region);
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void testNewCity_RequireArgument_NonEmptyName() {
+    public void testNewCityRequireArgumentNonEmptyName() {
         final String name = "";
         final int region = 1;
         getSUT(name, region);
     }
 
     @Test
-    public void testGetName() {
+    public void testGetNameVerifyFunctionalitySuppliedAndReturnedCityNameAreEqual() {
         final City sut = getSUT();
         final String want = "Entenhausen";
         final String have = sut.getName();
@@ -81,14 +81,14 @@ public class CityGeneratorTest {
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void testNewCity_RequireArgument_RegionNumberGreaterOrEqualOne() {
+    public void testNewCityRequireArgumentRegionNumberGreaterOrEqualOne() {
         final String name = "Entenhausen";
         final int region = -1;
         getSUT(name, region);
     }
 
     @Test
-    public void testGetRegion_VerifyFunctionality_SuppliedAndReturnedRegionNumbersAreEqual() {
+    public void testGetRegionVerifyFunctionalitySuppliedAndReturnedRegionNumbersAreEqual() {
         final City sut = getSUT();
         final int want = 1;
         final int have = sut.getRegion();
@@ -96,7 +96,7 @@ public class CityGeneratorTest {
     }
 
     @Test (expected = IllegalStateException.class)
-    public void testConnect_RequireArgument_NonClosedCity() {
+    public void testConnectRequireArgumentNonClosedCity() {
         final City sut = getSUT();
 
         // Initialisieren der zu verbindenden Stadt.
@@ -111,13 +111,13 @@ public class CityGeneratorTest {
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void testConnect_RequireArgument_NotThisCity() {
+    public void testConnectRequireArgumentNotThisCity() {
         final City sut = getSUT();
         sut.connect(sut, 1);
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void testConnect_RequireArgument_NonIdenticalCity() {
+    public void testConnectRequireArgumentNonIdenticalCity() {
         final City sut = getSUT();
 
         final City city = getSUT("Entenhausen", 1);
@@ -127,7 +127,7 @@ public class CityGeneratorTest {
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void testConnect_RequireArgument_NonConnectedCity() {
+    public void testConnectRequireArgumentNonConnectedCity() {
         final City sut = getSUT();
 
         final City city = getSUT("Entenhausen", 1);
@@ -141,7 +141,7 @@ public class CityGeneratorTest {
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void testConnect_RequireArgument_NonNullCity() {
+    public void testConnectRequireArgumentNonNullCity() {
         final City sut = getSUT();
 
         final City city = null;
@@ -151,7 +151,7 @@ public class CityGeneratorTest {
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void testConnect_RequireArgument_NonNegativeCosts() {
+    public void testConnectRequireArgumentNonNegativeCosts() {
         final City sut = getSUT();
 
         final City city = getSUT("Entenburg", 2);
@@ -161,7 +161,7 @@ public class CityGeneratorTest {
     }
 
     @Test
-    public void testConnect_VerifyFunctionality_CheckIfCityIsIndeedConnected() {
+    public void testConnectVerifyFunctionalityCheckIfCityIsIndeedConnected() {
         final City sut = getSUT();
 
         // Die zu verbindende Stadt wird erstellt.
@@ -178,7 +178,7 @@ public class CityGeneratorTest {
     }
 
     @Test (expected = IllegalStateException.class)
-    public void testGetConnections_RequireReturn_NonEmptyMap() {
+    public void testGetConnectionsRequireReturnNonEmptyMap() {
         final City sut = getSUT();
 
         // Das Auslesen der leeren Verbindungsliste wird einen Fehler verursachen.
@@ -186,7 +186,7 @@ public class CityGeneratorTest {
     }
 
     @Test (expected = UnsupportedOperationException.class)
-    public void testGetConnections_RequireReturn_ImmutableMapWhenCityIsClosed() {
+    public void testGetConnectionsRequireReturnImmutableMapWhenCityIsClosed() {
         final City sut = getSUT();
 
         // Die zu verbindende Stadt wird erstellt.
@@ -204,7 +204,7 @@ public class CityGeneratorTest {
     }
 
     @Test
-    public void testGetConnections_VerifyFunctionality_CityIsProperlyConnected() {
+    public void testGetConnectionsVerifyFunctionalityCityIsProperlyConnected() {
         final City sut = getSUT();
 
         // Die zu verbindende Stadt wird erstellt.
@@ -221,7 +221,7 @@ public class CityGeneratorTest {
     }
 
     @Test (expected = IllegalStateException.class)
-    public void testClose_DenyAction_MultipleCityCloseRequests() {
+    public void testCloseDenyActionMultipleCityCloseRequests() {
         final City sut = getSUT();
 
         // Die Stadt wird zum ersten Mal geschlossen.
@@ -232,7 +232,7 @@ public class CityGeneratorTest {
     }
 
     @Test
-    public void testCompareTo_VerifyFunctionality_SuppliedAndReturnedNaturalOrdersAreEqual() {
+    public void testCompareToVerifyFunctionalitySuppliedAndReturnedNaturalOrdersAreEqual() {
         final City sut = getSUT();
 
         final City city = getSUT("Entenburg", 1);

@@ -103,7 +103,7 @@ public class FactoryProvider implements Factory {
     @Override
     public Board newBoard(Edition edition) { // ToDo: Caching implementieren.
         final Board board = Optional.ofNullable(edition)
-                .map(n -> new BoardGenerator())
+                .map(createBoard -> new BoardGenerator())
                 .orElseThrow(
                         () -> new IllegalArgumentException("Die Edition darf nicht null sein.")
                 );
