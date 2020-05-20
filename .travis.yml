@@ -5,4 +5,7 @@ jdk:
 jobs:
   include:
     - stage: test
-      script: ./gradlew test ; ./gradlew pitest
+      script: ./gradlew test ; ./gradlew pitest ; ./gradlew jacocoTestReport
+      
+after_success:
+  -  bash <(curl -Ls https://coverage.codacy.com/get.sh)
