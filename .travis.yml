@@ -1,13 +1,8 @@
 language: java
-install: true
+jdk:
+  -openjdk14
 
-os: linux
-dist: trusty
-jdk: oraclejdk14
-
-cache:
-  directories:
-  - $HOME/.m2
-
-after_success:
-  -  bash <(curl -s https://codecov.io/bash) 
+jobs:
+  include:
+    - stage: test
+      script: ./gradlew test ; ./gradlew pitest

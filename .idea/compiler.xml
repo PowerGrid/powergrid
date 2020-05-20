@@ -1,20 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <annotationProcessing>
-      <profile name="Maven default annotation processors profile" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <module name="PowerGrid" />
-        <module name="edu.hm.kuehnel.maven.java" />
-        <module name="powergrid" />
-      </profile>
-    </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="edu.hm.kuehnel.maven.java" target="14" />
-      <module name="powergrid" target="14" />
-      <module name="PowerGrid" target="14" />
-    </bytecodeTargetLevel>
+    <bytecodeTargetLevel target="14" />
   </component>
 </project>

@@ -1,0 +1,66 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+    id 'info.solidsoft.pitest' version '1.5.1'
+}
+
+group 'edu.hm'
+version '1.0'
+
+sourceCompatibility = JavaVersion.VERSION_14
+targetCompatibility = JavaVersion.VERSION_14
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+    implementation group: 'org.slf4j', name: 'slf4j-ext', version: '1.7.9'
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs += '--enable-preview'
+}
+
+tasks.withType(Test) {
+    systemProperty "powergrid.factory", "edu.hm.kuehnel.powergrid.datastore.FactoryProvider"
+    jvmArgs += "--enable-preview"
+}
+
+tasks.withType(JavaExec) {
+    systemProperty "powergrid.factory", "edu.hm.kuehnel.powergrid.datastore.FactoryProvider"
+}
+
+pitest {
+    maxSurviving.set(7)
+    outputFormats.add('HTML')
+    excludedClasses.add("edu.hm.cs.rs.powergrid.*")
+    jvmArgs.set(["--enable-preview"])
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        csv.enabled true
+        html.destination file("${buildDir}/jacocoHtml")
+    }
+
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it,
+                    exclude: [
+                            '**/cs/rs/**'
+                    ])
+        }))
+    }
+}
+
+build {
+    dependsOn 'pitest'
+    dependsOn 'jacocoTestReport'
+}
+
+clean {
+    delete "${rootDir}/doc/"
+}
