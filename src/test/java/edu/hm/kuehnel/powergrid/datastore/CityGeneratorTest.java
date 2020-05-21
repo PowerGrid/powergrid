@@ -38,8 +38,7 @@ public class CityGeneratorTest {
 
     /** Initialisiert die Factory. */
     public CityGeneratorTest() throws IOException {
-        final String factoryFQCN = "edu.hm.kuehnel.powergrid.datastore.FactoryProvider";
-        factory = Factory.newFactory(factoryFQCN);
+        factory = Factory.newFactory();
     }
 
     /** Instanziiert eine neue Stadt mit fallbezogenen oder falschen Parametern.
