@@ -36,8 +36,7 @@ public class FactoryProviderTest {
 
     /** Initialisiert die Factory. */
     public FactoryProviderTest() throws IOException {
-        final String factoryFQCN = "edu.hm.kuehnel.powergrid.datastore.FactoryProvider";
-        factory = Factory.newFactory(factoryFQCN);
+        factory = Factory.newFactory();
     }
 
     @Test
