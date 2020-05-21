@@ -44,8 +44,7 @@ public class BoardGeneratorTest {
 
     /** Initialisiert die Factory. */
     public BoardGeneratorTest() throws IOException {
-        final String factoryFQCN = "edu.hm.kuehnel.powergrid.datastore.FactoryProvider";
-        factory = Factory.newFactory(factoryFQCN);
+        factory = Factory.newFactory();
         edition = new EditionGermany();
     }
 
