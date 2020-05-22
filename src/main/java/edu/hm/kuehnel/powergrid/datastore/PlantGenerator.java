@@ -63,7 +63,7 @@ class PlantGenerator implements Plant {
      * @throws IllegalArgumentException wenn Anzahl notwendiger Rohstoffe negativ ist.
      * @throws IllegalArgumentException wenn Anzahl mit Strom versorgbarer Staedte negativ ist.
      */
-    public PlantGenerator(int number, Type type, int resources, int cities) {
+    PlantGenerator(int number, Type type, int resources, int cities) {
         if (number < 0)
             throw new IllegalArgumentException("Eindeutige Nummer des Kraftwerks darf nicht negativ sein.");
 

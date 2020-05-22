@@ -75,7 +75,7 @@ class PlayerGenerator implements Player {
      * @throws IllegalArgumentException wenn die Farbe des Spielers null oder leer ist.
      * @throws IllegalArgumentException wenn das Geheimnis des Spielers null oder leer ist.
      */
-    public PlayerGenerator(String color, String secret) {
+    PlayerGenerator(String color, String secret) {
 
         this.color = Optional.ofNullable(color) // Die Farbe des Spielers darf nicht null sein.
                 .filter(Predicate.not(String::isBlank)) // Die Farbe des Spielers  darf nicht leer sein.
