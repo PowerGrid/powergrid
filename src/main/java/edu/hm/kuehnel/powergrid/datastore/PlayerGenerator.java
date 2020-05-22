@@ -28,9 +28,9 @@ import java.util.function.Predicate;
  * Ein Spieler.
  *
  * @author Stefan Kuehnel, stefan.kuehnel@hm.edu
- * @version last modified 2020-05-21
+ * @version last modified 2020-05-23
  */
-public class PlayerGenerator implements Player {
+class PlayerGenerator implements Player {
     /**
      * Staedte, die der Spieler an sein Stromnetz angeschlossen hat.
      */
@@ -42,12 +42,7 @@ public class PlayerGenerator implements Player {
     private final Set<Plant> plants = new TreeSet<>();
 
     /**
-     * Rohstoffe, die in den Kraftwerken lagern.
-     */
-    private Bag<Resource> resources; // ToDo: Variable final deklarieren.
-
-    /**
-     * Farbe dieses Spielers
+     * Farbe dieses Spielers.
      */
     private final String color;
 
@@ -59,7 +54,7 @@ public class PlayerGenerator implements Player {
     /**
      * Prueft, ob das Geheimnis schon einmal preisgegeben wurde.
      */
-    private Boolean secretHasBeenDisclosedOnce = false;
+    private Boolean secretDisclosedOnce = false;
 
     /**
      * Das Vermoegen.
@@ -69,7 +64,7 @@ public class PlayerGenerator implements Player {
     /**
      * Bestimmt, ob Spieler an der Reihe war, oder nicht.
      */
-    private boolean passed = false;
+    private boolean passed;
 
     /**
      * Instanziiert einen neuen Spieler.
@@ -183,11 +178,11 @@ public class PlayerGenerator implements Player {
     @Override
     public String getSecret() {
         // Prueft, ob das Geheimnis nicht schon einmal preisgegeben wurde.
-        if(secretHasBeenDisclosedOnce)
+        if(secretDisclosedOnce)
             return null;
 
         // Speichert, dass das Geheimnis nachfolgend einmal preisgegeben wurde.
-        secretHasBeenDisclosedOnce = true;
+        secretDisclosedOnce = true;
 
         // Gibt das Geheimnis einmalig aus.
         return secret;
@@ -196,15 +191,15 @@ public class PlayerGenerator implements Player {
     /**
      * Test, ob dieser Spieler das gegebene Geheimis hat.
      *
-     * @param secret Ein String.
+     * @param givenSecret Ein String.
      * @return true, wenn der String das Geheimnis ist; false ansonsten.
      */
     @Override
-    public boolean hasSecret(String secret) {
+    public boolean hasSecret(String givenSecret) {
         // Das Geheimnis des Spielers.
         final String playerSecret = this.secret;
 
         // Ausgabe ob Geheimnisse uebereinstimmen, oder nicht.
-        return playerSecret.equals(secret);
+        return playerSecret.equals(givenSecret);
     }
 }

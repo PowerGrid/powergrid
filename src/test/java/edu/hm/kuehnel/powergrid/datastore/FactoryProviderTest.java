@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 
 /** Die Testklasse fuer den FactoryProvider.
  * @author Stefan Kühnel, stefan.kuehnel@hm.edu
- * @version last-modified 2020-05-18
+ * @version last-modified 2020-05-23
  */
 public class FactoryProviderTest {
     /** Verhindert unendliche Schleifen. */

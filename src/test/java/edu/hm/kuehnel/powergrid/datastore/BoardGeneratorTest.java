@@ -30,7 +30,7 @@ import static org.junit.Assert.assertThrows;
 
 /** Die Testklasse fuer den BoardGenerator.
  * @author Stefan Kühnel, stefan.kuehnel@hm.edu
- * @version last-modified 2020-05-16
+ * @version last-modified 2020-05-23
  */
 public class BoardGeneratorTest {
     /** Verhindert unendliche Schleifen. */

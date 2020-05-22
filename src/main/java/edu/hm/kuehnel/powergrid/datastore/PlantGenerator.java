@@ -21,7 +21,7 @@ import java.util.Set;
 
 /** Ein Kraftwerk.
  * @author Stefan Kuehnel, stefan.kuehnel@hm.edu
- * @version last-modified 2020-05-16
+ * @version last-modified 2020-05-23
  */
 class PlantGenerator implements Plant {
 
@@ -44,11 +44,6 @@ class PlantGenerator implements Plant {
      * Rohstoffe, die dieses Kraftwerk braucht, um Strom zu produzieren.
      */
     private final Type typeOfResources;
-
-    /**
-     * Rohstoffsammlungen, mit denen dieses Kraftwerk laufen kann.
-     */
-    private Bag<Resource> resources;
 
     /**
      * Bestimmt, ob Kraftwerk Strom produziert hat, oder nicht.

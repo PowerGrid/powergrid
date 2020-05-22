@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 /** Produziert neue Bausteine des Spieles.
  * @author Stefan Kühnel, stefan.kuehnel@hm.edu
- * @version last-modified 2020-05-16
+ * @version last-modified 2020-05-23
  */
 public class FactoryProvider implements Factory {
 

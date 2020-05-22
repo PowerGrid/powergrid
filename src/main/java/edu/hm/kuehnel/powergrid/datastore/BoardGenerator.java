@@ -16,14 +16,18 @@ package edu.hm.kuehnel.powergrid.datastore;
 import edu.hm.cs.rs.powergrid.datastore.Board;
 import edu.hm.cs.rs.powergrid.datastore.City;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.Optional;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.function.Predicate;
 
 /** Der Spielplan.
  * @author Stefan Kuehnel, stefan.kuehnel@hm.edu
- * @version last-modified 2020-05-18
+ * @version last-modified 2020-05-23
  */
-public class BoardGenerator implements Board {
+class BoardGenerator implements Board {
     /**
      * Eine Liste aller Staedte auf dem Spielplan.
      */
