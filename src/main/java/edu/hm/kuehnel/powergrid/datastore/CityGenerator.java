@@ -4,7 +4,7 @@
  * Proprietary and confidential
  * Written by Stefan Kuehnel <stefan.kuehnel@hm.edu>, May 2020
  *
- * DISCLAIMER. THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OR CONDITION,
+ * DISCLAIMER. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OR CONDITION,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. THE AUTHOR HEREBY DISCLAIMS
  * ALL LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
@@ -48,7 +48,7 @@ class CityGenerator implements City {
     private final Map<City, Integer> connections = new HashMap<>();
 
     /**
-     * Initialisiert eine neue Stadt.
+     * Instanziiert eine neue Stadt.
      * @param name Name der Stadt. Nicht leer, nicht null.
      * @param region Gebiet, in dem die Stadt liegt. Wenigstens 1.
      *

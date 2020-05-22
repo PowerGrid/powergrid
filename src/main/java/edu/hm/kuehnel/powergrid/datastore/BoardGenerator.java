@@ -4,7 +4,7 @@
  * Proprietary and confidential
  * Written by Stefan Kuehnel <stefan.kuehnel@hm.edu>, May 2020
  *
- * DISCLAIMER. THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OR CONDITION,
+ * DISCLAIMER. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OR CONDITION,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. THE AUTHOR HEREBY DISCLAIMS
  * ALL LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
@@ -16,11 +16,7 @@ package edu.hm.kuehnel.powergrid.datastore;
 import edu.hm.cs.rs.powergrid.datastore.Board;
 import edu.hm.cs.rs.powergrid.datastore.City;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Predicate;
 
 /** Der Spielplan.
@@ -31,7 +27,7 @@ public class BoardGenerator implements Board {
     /**
      * Eine Liste aller Staedte auf dem Spielplan.
      */
-    private final Set<City> citiesOnBoard = new HashSet<>();
+    private final Set<City> citiesOnBoard = new TreeSet<>();
 
     /**
      * Bestimmt, ob Spielplan geschlossen wurde, oder nicht.
@@ -98,7 +94,7 @@ public class BoardGenerator implements Board {
      * Veraenderlich bis zum ersten close-Aufruf. Dann unveraenderlich.
      */
     @Override
-    public Set<City> getCities() { // ToDo: Pruefen, ob citiesOnBoard.isNull() erforderlich ist.
+    public Set<City> getCities() {
         // Gibt bei geschlossenem Spielbrett ein unveraenderliches Set zurück.
         if (closed)
             return Collections.unmodifiableSet(citiesOnBoard);

@@ -40,7 +40,7 @@ public class FactoryProviderTest {
     }
 
     @Test
-    public void testNewCityVerifyFunctionalityCompareCityNameWithActualName() {
+    public void testNewCity() {
         // arrange
         final String cityName = "Entenhausen";
         final int cityRegion = 1;
@@ -49,30 +49,13 @@ public class FactoryProviderTest {
         final City city = factory.newCity(cityName, cityRegion);
 
         // assert
-        final String want = cityName;
-        final String have = city.getName();
-
-        assertEquals(want, have);
+        assertEquals("Uebergebene Region stimmt mit erhaltener ueberein.", cityRegion, city.getRegion());
+        assertEquals("Uebergebener Name stimmt mit erhaltenem ueberein.", cityName, city.getName());
     }
 
     @Test
-    public void testNewCityVerifyFunctionalityCompareCityRegionWithActualRegion() {
+    public void testNewBoard() {
         // arrange
-        final String cityName = "Entenhausen";
-        final int cityRegion = 1;
-
-        // act
-        final City city = factory.newCity(cityName, cityRegion);
-
-        // assert
-        final int want = cityRegion;
-        final int have = city.getRegion();
-
-        assertEquals(want, have);
-    }
-
-    @Test
-    public void testNewBoardVerifyFunctionalityCitiesAreConnectedViceVersa() {
         final Edition edition = new EditionGermany();
         final Board sut = factory.newBoard(edition);
 
@@ -81,11 +64,45 @@ public class FactoryProviderTest {
         final String cityAName = citySpecification[0];
         final String cityBName = citySpecification[2];
 
+        // act
         final City cityA = sut.findCity(cityAName);
         final City cityB = sut.findCity(cityBName);
 
-        assertTrue(cityA.getConnections().containsKey(cityB));
-        assertTrue(cityB.getConnections().containsKey(cityA));
+        // assert
+        assertTrue("Stadt A wurde mit Stadt B verbunden.", cityA.getConnections().containsKey(cityB));
+        assertTrue("Stadt B wurde mit Stadt A verbunden.", cityB.getConnections().containsKey(cityA));
+    }
+
+    @Test
+    public void testNewPlayer() {
+        // arrange
+        final String secret = "Psst, nicht verraten";
+        final String color = "Blau";
+
+        // act
+        final Player player = factory.newPlayer(secret, color);
+
+        // assert
+        assertEquals("Uebergebenes Geheimnis stimmt mit erhaltenem überein.", secret, player.getSecret());
+        assertEquals("Uebergebene Farbe stimmt mit erhaltener ueberein.", color, player.getColor());
+    }
+
+    @Test
+    public void testNewPlant() {
+        // arrange
+        final int number = 1;
+        final Plant.Type type = Plant.Type.Coal;
+        final int resources = 1;
+        final int cities = 1;
+
+        // act
+        final Plant plant = factory.newPlant(number, type, resources, cities);
+
+        // assert
+        assertEquals("Uebergebene Nummer stimmt mit erhaltener ueberein.", number, plant.getNumber());
+        assertEquals("Uebergebene Ressource stimmt mit erhaltener ueberein.", type, plant.getType());
+        assertEquals("Uebergebene Anzahl Ressourcen stimmt mit erhaltener ueberein.", resources, plant.getNumberOfResources());
+        assertEquals("Uebergebene Anzahl versorgbarer Staedte stimmt mit erhaltener ueberein.", cities, plant.getCities());
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -94,27 +111,6 @@ public class FactoryProviderTest {
     }
 
     /** NACHFOLGEND WERDEN LEDIGLICH DUMMY TEST IMPLEMENTIERUNGEN OHNE MEHRWERT VERWENDET. */
-
-    @Test
-    public void testNewPlayerRequireReturnDummyNull() {
-        final String secret = "Geheimnis";
-        final String color = "Farbe";
-
-        final Player sut = factory.newPlayer(secret, color);
-
-        assertNull(sut);
-    }
-
-    @Test
-    public void testNewPlantRequireReturnDummyNull() {
-        final int number = 1;
-        final int resources = 1;
-        final int cities = 1;
-
-        final Plant sut = factory.newPlant(number, null, resources, cities);
-
-        assertNull(sut);
-    }
 
     @Test
     public void testNewPlantMarketRequireReturnDummyNull() {

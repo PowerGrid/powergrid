@@ -4,7 +4,7 @@
  * Proprietary and confidential
  * Written by Stefan Kuehnel <stefan.kuehnel@hm.edu>, May 2020
  *
- * DISCLAIMER. THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OR CONDITION,
+ * DISCLAIMER. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OR CONDITION,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. THE AUTHOR HEREBY DISCLAIMS
  * ALL LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
@@ -26,6 +26,7 @@ import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThrows;
 
 /** Die Testklasse fuer den BoardGenerator.
  * @author Stefan Kühnel, stefan.kuehnel@hm.edu
@@ -56,6 +57,14 @@ public class BoardGeneratorTest {
     }
 
     @Test
+    public void testCloseRegionsIllegalParameters() {
+        final Board sut = getSUT();
+
+        // Das Gebiet der zu verbleibenden Staedte darf nicht negativ sein.
+        assertThrows(IllegalArgumentException.class, () -> sut.closeRegions(-1));
+    }
+
+    @Test
     public void testCloseRegionsVerifyFunctionalityNumberOfRegionalCitiesOnBoardAndEditionAreEqual() {
         final Board sut = getSUT();
 
@@ -75,14 +84,8 @@ public class BoardGeneratorTest {
         final long want = numberOfCitiesInRegionInEdition;
         final long have = sut.getCities().size();
 
-        assertEquals(want, have);
+        assertEquals("Die Anzahl der Staedte auf dem Spielbrett und der Edition stimmt überein.", want, have);
 
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void testCloseRegionsRequireArgumentNonNegativeRemaining() {
-        final Board sut = getSUT();
-        sut.closeRegions(-1);
     }
 
     @Test (expected = IllegalStateException.class)
@@ -92,27 +95,26 @@ public class BoardGeneratorTest {
         sut.closeRegions(1);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void testFindCityRequireArgumentNonEmptyName() {
+    @Test
+    public void testFindCityIllegalParameters() {
         final Board sut = getSUT();
-        sut.findCity("");
-    }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void testFindCityRequireArgumentNonNullName() {
-        final Board sut = getSUT();
-        sut.findCity(null);
+        // Der Name der Stadt darf nicht null sein.
+        assertThrows(IllegalArgumentException.class, () -> sut.findCity(null));
+
+        // Der Name der Stadt darf nicht leer sein.
+        assertThrows(IllegalArgumentException.class, () -> sut.findCity(""));
     }
 
     @Test
     public void testFindCityRequireReturnNullIfCityIsNotFoundOnBoard() {
         final Board sut = getSUT();
 
-        assertNull(sut.findCity("Atlantis"));
+        assertNull("Diese Stadt existiert nicht auf dem Spielplan.", sut.findCity("Atlantis"));
     }
 
     @Test
-    public void testFindCityVerifyFunctionalityRandomCityFromEditionIsFoundOnBoard() {
+    public void testFindCityVerifyFunctionalityCityFromEditionIsFoundOnBoard() {
         final Board sut = getSUT();
 
         final String[] editionCityProperties = edition.getCitySpecifications().get(0).split("\\s+");
@@ -121,17 +123,17 @@ public class BoardGeneratorTest {
         final String want = cityNameFromEdition;
         final String have = sut.findCity(cityNameFromEdition).getName();
 
-        assertEquals(want, have);
+        assertEquals("Eine zufällige Stadt der Edition ist auf dem Spielbrett enthalten.", want, have);
     }
 
     @Test
-    public void testGetCitiesVerifyFunctionalityCompareNumberOfCitiesWithEdition() {
+    public void testGetCities() {
         final Board sut = getSUT();
 
         final int want = edition.getCitySpecifications().size();
         final int have = sut.getCities().size();
 
-        assertEquals(want, have);
+        assertEquals("Anzahl der Staedte stimmt mit der der Edition ueberein.", want, have);
     }
 
     @Test (expected = UnsupportedOperationException.class)

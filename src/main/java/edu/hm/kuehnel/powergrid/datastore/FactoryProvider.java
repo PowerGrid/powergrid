@@ -43,8 +43,8 @@ public class FactoryProvider implements Factory {
      * @return Neuer Spieler.
      */
     @Override
-    public Player newPlayer(String secret, String color) {
-        return null;
+    public Player newPlayer(String secret, String color) { // ToDo: Caching implementieren.
+        return new PlayerGenerator(color, secret);
     }
 
     /**
@@ -58,7 +58,7 @@ public class FactoryProvider implements Factory {
      */
     @Override
     public Plant newPlant(int number, Plant.Type type, int resources, int cities) {
-        return null;
+        return new PlantGenerator(number, type, resources, cities);
     }
 
     /**

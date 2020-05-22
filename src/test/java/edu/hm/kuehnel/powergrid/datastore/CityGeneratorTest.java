@@ -4,7 +4,7 @@
  * Proprietary and confidential
  * Written by Stefan Kuehnel <stefan.kuehnel@hm.edu>, May 2020
  *
- * DISCLAIMER. THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OR CONDITION,
+ * DISCLAIMER. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OR CONDITION,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. THE AUTHOR HEREBY DISCLAIMS
  * ALL LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
@@ -22,11 +22,12 @@ import org.junit.rules.Timeout;
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 /** Die Testklasse fuer den CityGenerator.
  * @author Stefan Kuehnel, stefan.kuehnel@hm.edu
- * @version last-modified 2020-05-16
+ * @version last-modified 2020-05-23
  */
 public class CityGeneratorTest {
     /** Verhindert unendliche Schleifen. */
@@ -60,41 +61,52 @@ public class CityGeneratorTest {
         return factory.newCity(cityName, region);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void testNewCityRequireArgumentNonNullName() {
-        final String name = null;
-        final int region = 1;
-        getSUT(name, region);
-    }
+    @Test
+    public void testNewCityIllegalParameters() {
+        final String correctCityName = "Entenburg";
+        final int correctCityRegion = 1;
 
-    @Test (expected = IllegalArgumentException.class)
-    public void testNewCityRequireArgumentNonEmptyName() {
-        final String name = "";
-        final int region = 1;
-        getSUT(name, region);
+        // Der Name der Stadt darf nicht null sein.
+        assertThrows(IllegalArgumentException.class, () -> getSUT(null, correctCityRegion));
+
+        // Der Name der Stadt darf nicht leer sein.
+        assertThrows(IllegalArgumentException.class, () -> getSUT("", correctCityRegion));
+
+        // Das Gebiet, in dem die Stadt liegt, darf nicht 0 sein.
+        assertThrows(IllegalArgumentException.class, () -> getSUT(correctCityName, 0));
+
+        // Das Gebiet, in dem die Stadt liegt, darf nicht negativ sein.
+        assertThrows(IllegalArgumentException.class, () -> getSUT(correctCityName, -1));
     }
 
     @Test
-    public void testGetNameVerifyFunctionalitySuppliedAndReturnedCityNameAreEqual() {
+    public void testGetName() {
         final City sut = getSUT();
         final String want = "Entenhausen";
         final String have = sut.getName();
-        assertEquals(want, have);
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void testNewCityRequireArgumentRegionNumberGreaterOrEqualOne() {
-        final String name = "Entenhausen";
-        final int region = -1;
-        getSUT(name, region);
+        assertEquals("Uebergebener Name stimmt mit erhaltenem Namen ueberein.", want, have);
     }
 
     @Test
-    public void testGetRegionVerifyFunctionalitySuppliedAndReturnedRegionNumbersAreEqual() {
+    public void testGetRegion() {
         final City sut = getSUT();
         final int want = 1;
         final int have = sut.getRegion();
-        assertEquals(want, have);
+        assertEquals("Uebergebene Region stimmt mit erhaltener Region ueberein.", want, have);
+    }
+
+    @Test
+    public void testConnectIllegalParameters() {
+        final City sut = getSUT();
+
+        final City correctCity = getSUT("Entenburg", 2);
+        final int correctCost = 1;
+
+        // Die zu verbindende Stadt darf nicht null sein.
+        assertThrows(IllegalArgumentException.class, () -> sut.connect(null, correctCost));
+
+        // Die Verbindungskosten duerfen nicht negativ sein.
+        assertThrows(IllegalArgumentException.class, () -> sut.connect(correctCity, -1));
     }
 
     @Test (expected = IllegalStateException.class)
@@ -142,26 +154,6 @@ public class CityGeneratorTest {
         sut.connect(city, costs); // Hier funktioniert es nicht mehr.
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void testConnectRequireArgumentNonNullCity() {
-        final City sut = getSUT();
-
-        final City city = null;
-        final int costs = 1;
-
-        sut.connect(city, costs);
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void testConnectRequireArgumentNonNegativeCosts() {
-        final City sut = getSUT();
-
-        final City city = getSUT("Entenburg", 2);
-        final int costs = -1;
-
-        sut.connect(city, costs);
-    }
-
     @Test (expected = IllegalStateException.class)
     public void testConnectDenyActionCityIsAlreadyClosed() {
         final City sut = getSUT();
@@ -181,20 +173,17 @@ public class CityGeneratorTest {
     }
 
     @Test
-    public void testConnectVerifyFunctionalityCityIsIndeedConnected() {
+    public void testConnect() {
         final City sut = getSUT();
 
         // Die zu verbindende Stadt wird erstellt.
         final City city = getSUT("Entenburg", 2);
-        final int costs = 1;
 
         // Die Staedte werden verbunden.
-        sut.connect(city, costs);
+        sut.connect(city, 1);
 
         // Prueft, ob die Stadt tatsächlich verbunden wurde.
-        final boolean cityHasBeenConnected = sut.getConnections().containsKey(city);
-
-        assertTrue(cityHasBeenConnected);
+        assertTrue("Entenburg wurde mit Entenhausen verbunden.", sut.getConnections().containsKey(city));
     }
 
     @Test (expected = IllegalStateException.class)
@@ -223,23 +212,6 @@ public class CityGeneratorTest {
         sut.getConnections().put(city, costs);
     }
 
-    @Test
-    public void testGetConnectionsVerifyFunctionalityCityIsProperlyConnected() {
-        final City sut = getSUT();
-
-        // Die zu verbindende Stadt wird erstellt.
-        final City city = getSUT("Entenburg", 2);
-        final int costs = 1;
-
-        // Die Staedte werden verbunden.
-        sut.connect(city, costs);
-
-        // Pruefung, ob Stadt tatsaechlich verbunden wurde.
-        final boolean cityIsConnected = sut.getConnections().containsKey(city);
-
-        assertTrue(cityIsConnected);
-    }
-
     @Test (expected = IllegalStateException.class)
     public void testCloseDenyActionEmptyCityConnections() {
         final City sut = getSUT();
@@ -266,7 +238,7 @@ public class CityGeneratorTest {
     }
 
     @Test
-    public void testCompareToVerifyFunctionalitySuppliedAndReturnedNaturalOrdersAreEqual() {
+    public void testCompareTo() {
         final City sut = getSUT();
 
         final City city = getSUT("Entenburg", 1);
@@ -274,6 +246,6 @@ public class CityGeneratorTest {
         final int want = 6;
         final int have = sut.compareTo(city);
 
-        assertEquals(want, have);
+        assertEquals("Die natuerliche Ordnung von Entenburg ist korrekt.", want, have);
     }
 }
