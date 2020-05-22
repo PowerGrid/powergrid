@@ -83,6 +83,9 @@ public class PlantGeneratorTest {
 
         // Anzahl mit Strom versorgbarer Staedte darf nicht negativ sein.
         assertThrows(IllegalArgumentException.class, () -> getSUT(correctNumber, correctType, correctResources, -1));
+
+        // Rohstoff darf nicht null sein.
+        assertThrows(IllegalArgumentException.class, () -> getSUT(correctNumber, null, correctResources, correctCities));
     }
 
     @Test

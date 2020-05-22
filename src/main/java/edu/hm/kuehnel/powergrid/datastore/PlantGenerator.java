@@ -4,7 +4,7 @@
  * Proprietary and confidential
  * Written by Stefan Kuehnel <stefan.kuehnel@hm.edu>, May 2020
  *
- * DISCLAIMER. THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OR CONDITION,
+ * DISCLAIMER. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OR CONDITION,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. THE AUTHOR HEREBY DISCLAIMS
  * ALL LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
@@ -17,6 +17,7 @@ import edu.hm.cs.rs.powergrid.Bag;
 import edu.hm.cs.rs.powergrid.datastore.Plant;
 import edu.hm.cs.rs.powergrid.datastore.Resource;
 
+import java.util.Objects;
 import java.util.Set;
 
 /** Ein Kraftwerk.
@@ -55,7 +56,7 @@ class PlantGenerator implements Plant {
      * Instanziiert ein neues Kraftwerk.
      *
      * @param number      Eindeutige Nummer. Nicht negativ.
-     * @param type        Rohstoffe, die dieses Kraftwerk zur Stromproduktion benoetigt.
+     * @param type        Rohstoffe, die dieses Kraftwerk zur Stromproduktion benoetigt. Nicht null.
      * @param resources   Anzahl notwendiger Rohstoffe zur Stromproduktion. Nicht negativ.
      * @param cities      Anzahl mit Strom versorgbarer Staedte. Nicht negativ.
      *
@@ -72,6 +73,9 @@ class PlantGenerator implements Plant {
 
         if (cities < 0)
             throw new IllegalArgumentException("Anzahl mit Strom versorgbarer Staedte darf nicht negativ sein.");
+
+        if (Objects.isNull(type))
+            throw new IllegalArgumentException("Rohstoff darf nicht null sein.");
 
         this.uniqueNumber = number;
         this.numberOfSuppliableCities = cities;
