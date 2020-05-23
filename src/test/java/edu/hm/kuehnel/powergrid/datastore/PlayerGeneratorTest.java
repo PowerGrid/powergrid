@@ -130,9 +130,10 @@ public class PlayerGeneratorTest {
         getSUT().getResources();
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void testSetElectroRequireNonNegativeElectro() {
-        getSUT().setElectro(-1);
+    @Test
+    public void testSetElectroIllegalParameters() {
+        // Die Anzahl Electro darf nicht negativ sein.
+        assertThrows(IllegalArgumentException.class, () -> getSUT().setElectro(-1));
     }
 
     @Test
