@@ -26,7 +26,6 @@ import java.io.IOException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 /** Die Testklasse fuer den PlayerGenerator.
@@ -65,22 +64,36 @@ public class PlayerGeneratorTest {
         return factory.newPlayer(secret, color);
     }
 
-    @Test
-    public void testNewPlayerIllegalParameters() {
+    @Test (expected = IllegalArgumentException.class)
+    public void testNewPlayerRequireArgumentNonNullSecret() {
         final String correctColor = "Blau";
-        final String correctSecret = "Psst, nicht verraten.";
 
         // Das Geheimnis darf nicht null sein.
-        assertThrows(IllegalArgumentException.class, () -> getSUT(correctColor, null));
+        getSUT(correctColor, null);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testNewPlayerRequireArgumentNonEmptySecret() {
+        final String correctColor = "Blau";
 
         // Das Geheimnis darf nicht leer sein.
-        assertThrows(IllegalArgumentException.class, () -> getSUT(correctColor, ""));
+        getSUT(correctColor, "");
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testNewPlayerRequireArgumentNonNullColor() {
+        final String correctSecret = "Psst, nicht verraten.";
 
         // Die Farbe darf nicht null sein.
-        assertThrows(IllegalArgumentException.class, () -> getSUT(null, correctSecret));
+        getSUT(null, correctSecret);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testNewPlayerRequireArgumentNonEmptyColor() {
+        final String correctSecret = "Psst, nicht verraten.";
 
         // Die Farbe darf nicht leer sein.
-        assertThrows(IllegalArgumentException.class, () -> getSUT("", correctSecret));
+        getSUT("", correctSecret);
     }
 
     @Test
@@ -130,10 +143,10 @@ public class PlayerGeneratorTest {
         getSUT().getResources();
     }
 
-    @Test
-    public void testSetElectroIllegalParameters() {
+    @Test (expected = IllegalArgumentException.class)
+    public void testSetElectroRequireArgumentNonNegativElectro() {
         // Die Anzahl Electro darf nicht negativ sein.
-        assertThrows(IllegalArgumentException.class, () -> getSUT().setElectro(-1));
+        getSUT().setElectro(-1);
     }
 
     @Test

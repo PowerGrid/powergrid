@@ -23,7 +23,6 @@ import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 /** Die Testklasse fuer den PlantGenerator.
@@ -68,24 +67,44 @@ public class PlantGeneratorTest {
         return factory.newPlant(number, type, resources, cities);
     }
 
-    @Test
-    public void testNewPlantIllegalParameters() {
-        final int correctNumber = 1;
+    @Test (expected = IllegalArgumentException.class)
+    public void testNewPlantRequireArgumentNonNegativeNumber() {
         final Plant.Type correctType = Plant.Type.Coal;
         final int correctResources = 1;
         final int correctCities = 1;
 
         // Eindeutige Nummer des Kraftwerks darf nicht negativ sein.
-        assertThrows(IllegalArgumentException.class, () -> getSUT(-1, correctType, correctResources, correctCities));
+        getSUT(-1, correctType, correctResources, correctCities);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testNewPlantRequireArgumentNonNegativeResources() {
+        final int correctNumber = 1;
+        final Plant.Type correctType = Plant.Type.Coal;
+        final int correctCities = 1;
 
         // Anzahl notwendiger Rohstoffe darf nicht negativ sein.
-        assertThrows(IllegalArgumentException.class, () -> getSUT(correctNumber, correctType, -1, correctCities));
+        getSUT(correctNumber, correctType, -1, correctCities);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testNewPlantRequireArgumentNonNegativeCities() {
+        final int correctNumber = 1;
+        final Plant.Type correctType = Plant.Type.Coal;
+        final int correctResources = 1;
 
         // Anzahl mit Strom versorgbarer Staedte darf nicht negativ sein.
-        assertThrows(IllegalArgumentException.class, () -> getSUT(correctNumber, correctType, correctResources, -1));
+        getSUT(correctNumber, correctType, correctResources, -1);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testNewPlantRequireArgumentNonNullType() {
+        final int correctNumber = 1;
+        final int correctResources = 1;
+        final int correctCities = 1;
 
         // Rohstoff darf nicht null sein.
-        assertThrows(IllegalArgumentException.class, () -> getSUT(correctNumber, null, correctResources, correctCities));
+        getSUT(correctNumber, null, correctResources, correctCities);
     }
 
     @Test

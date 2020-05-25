@@ -26,7 +26,6 @@ import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThrows;
 
 /** Die Testklasse fuer den BoardGenerator.
  * @author Stefan Kühnel, stefan.kuehnel@hm.edu
@@ -56,12 +55,12 @@ public class BoardGeneratorTest {
         return factory.newBoard(edition);
     }
 
-    @Test
-    public void testCloseRegionsIllegalParameters() {
+    @Test (expected = IllegalArgumentException.class)
+    public void testCloseRegionsRequireArgumentNonNegativeRemaining() {
         final Board sut = getSUT();
 
         // Das Gebiet der zu verbleibenden Staedte darf nicht negativ sein.
-        assertThrows(IllegalArgumentException.class, () -> sut.closeRegions(-1));
+        sut.closeRegions(-1);
     }
 
     @Test
@@ -95,15 +94,20 @@ public class BoardGeneratorTest {
         sut.closeRegions(1);
     }
 
-    @Test
-    public void testFindCityIllegalParameters() {
+    @Test (expected = IllegalArgumentException.class)
+    public void testFindCityRequireArgumentNonNullName() {
         final Board sut = getSUT();
 
         // Der Name der Stadt darf nicht null sein.
-        assertThrows(IllegalArgumentException.class, () -> sut.findCity(null));
+        sut.findCity(null);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testFindCityRequireArgumentNonEmptyName() {
+        final Board sut = getSUT();
 
         // Der Name der Stadt darf nicht leer sein.
-        assertThrows(IllegalArgumentException.class, () -> sut.findCity(""));
+        sut.findCity("");
     }
 
     @Test

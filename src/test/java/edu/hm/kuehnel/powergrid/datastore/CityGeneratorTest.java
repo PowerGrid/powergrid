@@ -22,7 +22,6 @@ import org.junit.rules.Timeout;
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 /** Die Testklasse fuer den CityGenerator.
@@ -61,22 +60,28 @@ public class CityGeneratorTest {
         return factory.newCity(cityName, region);
     }
 
-    @Test
-    public void testNewCityIllegalParameters() {
-        final String correctCityName = "Entenburg";
+    @Test (expected = IllegalArgumentException.class)
+    public void testNewCityRequireArgumentNonNullName() {
         final int correctCityRegion = 1;
+        getSUT(null, correctCityRegion);
+    }
 
-        // Der Name der Stadt darf nicht null sein.
-        assertThrows(IllegalArgumentException.class, () -> getSUT(null, correctCityRegion));
+    @Test (expected = IllegalArgumentException.class)
+    public void testNewCityRequireArgumentNonEmptyName() {
+        final int correctCityRegion = 1;
+        getSUT("", correctCityRegion);
+    }
 
-        // Der Name der Stadt darf nicht leer sein.
-        assertThrows(IllegalArgumentException.class, () -> getSUT("", correctCityRegion));
+    @Test (expected = IllegalArgumentException.class)
+    public void testNewCityRequireArgumentNonZeroRegion() {
+        final String correctCityName = "Entenburg";
+        getSUT(correctCityName, 0);
+    }
 
-        // Das Gebiet, in dem die Stadt liegt, darf nicht 0 sein.
-        assertThrows(IllegalArgumentException.class, () -> getSUT(correctCityName, 0));
-
-        // Das Gebiet, in dem die Stadt liegt, darf nicht negativ sein.
-        assertThrows(IllegalArgumentException.class, () -> getSUT(correctCityName, -1));
+    @Test (expected = IllegalArgumentException.class)
+    public void testNewCityRequireArgumentNonNegativeRegion() {
+        final String correctCityName = "Entenburg";
+        getSUT(correctCityName, -1);
     }
 
     @Test
@@ -95,18 +100,24 @@ public class CityGeneratorTest {
         assertEquals("Uebergebene Region stimmt mit erhaltener Region ueberein.", want, have);
     }
 
-    @Test
-    public void testConnectIllegalParameters() {
+    @Test (expected = IllegalArgumentException.class)
+    public void testConnectRequireArgumentNonNullCity() {
         final City sut = getSUT();
 
-        final City correctCity = getSUT("Entenburg", 2);
         final int correctCost = 1;
 
         // Die zu verbindende Stadt darf nicht null sein.
-        assertThrows(IllegalArgumentException.class, () -> sut.connect(null, correctCost));
+        sut.connect(null, correctCost);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testConnectRequireArgumentNonNegativeCosts() {
+        final City sut = getSUT();
+
+        final City correctCity = getSUT("Entenburg", 2);
 
         // Die Verbindungskosten duerfen nicht negativ sein.
-        assertThrows(IllegalArgumentException.class, () -> sut.connect(correctCity, -1));
+        sut.connect(correctCity, -1);
     }
 
     @Test (expected = IllegalStateException.class)
